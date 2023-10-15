@@ -155,3 +155,15 @@ int Utility::ExtractTar(const std::string& szInputFile, const std::filesystem::p
 
     return 0;
 }
+
+std::filesystem::path Utility::GetSteamSourcemodPath()
+{
+#if _WIN32
+	char valueData[MAX_PATH];
+	DWORD valueLen = MAX_PATH;
+	RegGetValueA(HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\Valve\\Steam", "InstallPath", RRF_RT_ANY, nullptr, &valueData, &valueLen);
+	return std::filesystem::path(valueData) / "steamapps\\sourcemods";
+#else
+	return std::filesystem::path();
+#endif
+}

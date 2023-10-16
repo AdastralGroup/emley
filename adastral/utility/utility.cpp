@@ -164,6 +164,8 @@ std::filesystem::path Utility::GetSteamSourcemodPath()
 	RegGetValueA(HKEY_LOCAL_MACHINE, "SOFTWARE\\WOW6432Node\\Valve\\Steam", "InstallPath", RRF_RT_ANY, nullptr, &valueData, &valueLen);
 	return std::filesystem::path(valueData) / "steamapps\\sourcemods";
 #else
-	return std::filesystem::path();
+	//Return normal steam path or use sym link version
+	auto normal_steam_linux =  std::filesystem::path("~/.local/share/Steam/steamapps/sourcemods");
+	return std::filesystem::exists(normal_steam_linux) ? normal_steam_linux : std::filesystem::path("~/.steam/steam/steamapps/sourcemods");
 #endif
 }

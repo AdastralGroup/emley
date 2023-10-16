@@ -16,4 +16,9 @@ class Utility
     static int DeleteDirectoryContent(const std::filesystem::path& dir);
     static int ExtractZStd(const std::string& szInputFile, const std::string& szOutputDirectory);
     static int ExtractTar(const std::string& szInputFile, const std::filesystem::path& szOutputDirectory);
+
+    /// <summary>
+    /// Get steam sourcemod folder as path
+    /// </summary>
+    static std::filesystem::path GetSteamSourcemodPath();
 };
